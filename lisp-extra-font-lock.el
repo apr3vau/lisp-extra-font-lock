@@ -223,6 +223,185 @@ special variables like plain variables, set this to
 ;; Function lists
 ;;
 
+(defvar font-lock-macro-face 'font-lock-macro-face
+  "Face name to use for macro.")
+
+(defcustom lisp-extra-font-lock-macro-symbols-opt
+  (regexp-opt
+   '("pprint-pop" "with-condition-restarts" "defpackage" "define-setf-expander"
+     "remf" "declaim" "in-package" "pop" "with-compilation-unit"
+     "with-standard-io-syntax" "dotimes" "restart-case" "multiple-value-setq"
+     "loop-finish" "with-package-iterator" "setf" "handler-case"
+     "define-symbol-macro" "lambda" "time" "restart-bind" "pprint-logical-block"
+     "ctypecase" "do" "destructuring-bind" "deftype" "with-hash-table-iterator"
+     "or" "assert" "shiftf" "defmacro" "prog2" "handler-bind" "pushnew"
+     "do-external-symbols" "unless" "define-compiler-macro" "prog" "ecase"
+     "print-unreadable-object" "case" "define-modify-macro" "step" "and"
+     "defconstant" "do*" "with-open-stream" "decf" "psetq" "trace" "rotatef"
+     "multiple-value-list" "with-input-from-string" "define-method-combination"
+     "do-all-symbols" "with-slots" "define-condition" "typecase" "untrace" "push"
+     "pprint-exit-if-list-exhausted" "ignore-errors" "defstruct" "defgeneric"
+     "defsetf" "dolist" "defclass" "when" "with-output-to-string" "prog*" "ccase"
+     "prog1" "psetf" "with-open-file" "return" "incf" "defun" "defmethod" "defvar"
+     "multiple-value-bind" "etypecase" "nth-value" "check-type" "formatter" "cond"
+     "call-method" "with-simple-restart" "do-symbols" "with-accessors" "loop"
+     "defparameter")
+   'symbols)
+  "Macro names."
+  :group 'lisp-extra-font-lock
+  :type '(list symbol))
+
+(defcustom lisp-extra-font-lock-function-symbols-opt
+  (regexp-opt
+   '("nintersection" "pprint-pop" "documentation" "atan" "copy-readtable"
+     "package-shadowing-symbols" "with-condition-restarts" "endp"
+     "simple-bit-vector-p" "defpackage" "define-setf-expander" "input-stream-p"
+     "remf" "load" "shadow" "adjoin" "nunion" "cdr" "char-int" "lower-case-p"
+     "gentemp" "float-precision" "gcd" "declaim" "char-not-equal" "macro-function"
+     "digit-char" "boole" "file-error-pathname" "char<" "string-upcase" "asinh"
+     "warn" "cadadr" "bit" "ldb" "in-package" "pop" "unread-char" "write"
+     "constantly" "dpb" "pathnamep" "slot-value" "set" "compile-file-pathname"
+     "make-sequence" "with-compilation-unit" "cddr" "mismatch" "find-method"
+     "with-standard-io-syntax" "dotimes" "describe" "replace" "clrhash"
+     "restart-case" "translate-pathname" "string<" "vector-pop" "hash-table-count"
+     "multiple-value-setq" "bit-nand" "hash-table-rehash-size" "proclaim"
+     "disassemble" "loop-finish" "with-package-iterator" "method-qualifiers"
+     "copy-pprint-dispatch" "<=" "type-of" "complexp" "functionp" "rationalize"
+     "y-or-n-p" "setf" "plusp" "list" "make-load-form" "ensure-generic-function"
+     "count-if" "handler-case" "pathname-device" "symbol-function"
+     "array-has-fill-pointer-p" "enough-namestring" "round" "set-syntax-from-char"
+     "machine-version" "member-if-not" "wild-pathname-p" "nthcdr"
+     "get-universal-time" "file-length" "peek-char" "make-two-way-stream" "cis"
+     "define-symbol-macro" "pathname" "digit-char-p" "copy-structure" "cdddr"
+     "pprint-tabular" "cdadar" "logical-pathname" "union" "array-element-type"
+     "floor" "lambda" "time" "logxor" "rassoc" "restart-bind"
+     "pprint-logical-block" "/=" "cos" "random-state-p" "if" "nsubst" "ed"
+     "remove-method" "copy-symbol" "vector-push" "ctypecase" "do" "finish-output"
+     "labels" "invoke-restart" "hash-table-rehash-threshold" "subseq" "lognand"
+     "sxhash" "get-properties" "caaaar" "pprint-tab" "coerce"
+     "multiple-value-prog1" "destructuring-bind" "string-right-trim" "deftype"
+     "output-stream-p" "funcall" "with-hash-table-iterator" "pprint-linear"
+     "realpart" "describe-object" "block" "or" "rest" "shadowing-import" "first"
+     "nbutlast" "bit-nor" "deposit-field" "=" "assert" "stream-element-type"
+     "char-upcase" "numerator" "char-downcase" "pathname-host" "max" "open"
+     "return-from" "shiftf" "nset-difference" "defmacro" "cdaddr" "break" "remprop"
+     "prog2" "sort" "use-value" "read-char" "string-trim" "read" "apropos"
+     "method-combination-error" "hash-table-p" "string=" "char-greaterp" "nreconc"
+     "string-not-greaterp" "compute-restarts" "handler-bind" "char>=" "char"
+     "tailp" "substitute-if-not" "make-string-output-stream" "logand" "tagbody"
+     "sinh" "member-if" "rem" "atom" "standard-char-p" "print" "list*"
+     "arithmetic-error-operation" "logandc2" "simple-condition-format-arguments"
+     "unuse-package" "pushnew" "signum" "cdaar" "make-string" "function" "mapc"
+     "quote" "sublis" "arrayp" "nstring-downcase" "do-external-symbols"
+     "position-if" "simple-vector-p" "write-byte" "string>" "slot-missing" "unless"
+     "translate-logical-pathname" "stable-sort" "nth" "nconc" "nsubstitute-if"
+     "define-compiler-macro" "read-char-no-hang" "stream-error-stream"
+     "simple-string-p" "macroexpand-1" "function-lambda-expression"
+     "machine-instance" "delete" "add-method" "logorc2" "make-package"
+     "char-not-lessp" "rplacd" "upgraded-array-element-type" "mapl"
+     "set-exclusive-or" "string-greaterp" "hash-table-size" "read-sequence"
+     "string<=" "sqrt" "read-from-string" "minusp" "make-pathname" "read-byte"
+     "pathname-directory" "make-instance" "prog" "abs" "char-lessp" "find" "catch"
+     "mapcar" "ldb-test" "write-sequence" "ecase" "boundp" "keywordp" "dribble"
+     "long-site-name" "char-equal" "butlast" "get-decoded-time" "symbol-value"
+     "integerp" "count-if-not" "bit-xor" "terpri" "array-row-major-index"
+     "software-type" "alpha-char-p" "concatenated-stream-streams" "let*"
+     "invoke-restart-interactively" "slot-unbound" "close" "nsubst-if" "logeqv"
+     "make-list" "floatp" "package-name" "concatenate" "synonym-stream-symbol"
+     "encode-universal-time" "get-setf-expansion" "logior"
+     "ensure-directories-exist" "print-unreadable-object" "cddddr" "case" "lognot"
+     "make-synonym-stream" "char=" "signal" "princ" "interactive-stream-p" "cdaadr"
+     "copy-seq" "define-modify-macro" "row-major-aref" "lisp-implementation-type"
+     "file-write-date" "progn" "step" "format" "zerop" "make-concatenated-stream"
+     "cdaaar" "decode-universal-time" "make-load-form-saving-slots" "string-equal"
+     "array-rank" "initialize-instance" "acosh" "nsubst-if-not" "write-string"
+     "remhash" "copy-alist" "and" "namestring" "float-sign" "parse-integer"
+     "short-site-name" "two-way-stream-input-stream" "caadr" "symbolp"
+     "defconstant" "getf" "delete-file" "type-error-expected-type" "isqrt" "float"
+     "byte-position" "do*" "with-open-stream" "file-string-length" "clear-output"
+     "abort" "decf" "stringp" "psetq" "no-applicable-method" "array-total-size"
+     "trace" "directory" "rotatef" "bit-orc1" "float-digits" "nstring-upcase"
+     "seventh" "class-of" "atanh" "adjust-array" "cdadr" "subst-if-not" ">="
+     "compiled-function-p" "error" "broadcast-stream-streams"
+     "upgraded-complex-part-type" "class-name" "string>=" "nsubstitute-if-not"
+     "macrolet" "pprint" "cons" "multiple-value-list" "position"
+     "get-internal-run-time" "macroexpand" "rename-file" "progv"
+     "with-input-from-string" "values-list" "define-method-combination" "import"
+     "symbol-plist" "logorc1" "write-to-string" "do-all-symbols"
+     "logical-pathname-translations" "assoc-if" "pathname-name" "file-author"
+     "allocate-instance" "tenth" "get-macro-character" "copy-tree" "*" "with-slots"
+     "position-if-not" "read-line" "type-error-datum" "read-preserving-whitespace"
+     "caadar" "reinitialize-instance" "car" "store-value" "define-condition"
+     "vector-push-extend" "last" "caddr" "readtablep" "bit-ior" "realp" "asin"
+     "rename-package" "ffloor" "phase" "typecase" "nsublis" "length" "char-code"
+     "eq" "subst-if" "graphic-char-p" "delete-if-not" "aref" "name-char"
+     "conjugate" "untrace" "echo-stream-input-stream" "characterp" "caar"
+     "pprint-newline" "push" "reverse" "pprint-indent" "revappend" "code-char"
+     "sixth" "list-all-packages" "restart-name" "clear-input" "slot-exists-p"
+     "substitute" "imagpart" "software-version" "merge-pathnames" "char/="
+     "pprint-exit-if-list-exhausted" "exp" "make-hash-table" "unwind-protect"
+     "apropos-list" "file-namestring" "provide" "string" "map-into" "find-if-not"
+     "ceiling" "muffle-warning" "nstring-capitalize" "reduce"
+     "get-dispatch-macro-character" "caddar" "fboundp" "gensym" "consp"
+     "compile-file" "find-all-symbols" "byte-size" "make-condition" "bit-andc1"
+     "eighth" "probe-file" "intersection" "compile" "bit-andc2" "typep"
+     "read-delimited-list" "array-in-bounds-p" "ldiff" "gethash" "cddar"
+     "multiple-value-call" "adjustable-array-p" "character" "get" "ignore-errors"
+     "tree-equal" "map" "nsubstitute" "unexport" "pathname-match-p" "/"
+     "use-package" "substitute-if" "assoc-if-not" "unbound-slot-instance" "fourth"
+     "random" "invoke-debugger" "min" "defstruct" "stream-external-format"
+     "bit-orc2" "symbol-macrolet" "defgeneric" "change-class" "complement" "assoc"
+     "fifth" "nreverse" "the" "intern" "defsetf" "dolist" "defclass" "eval" "when"
+     "with-output-to-string" "cosh" "string-not-equal" "load-time-value" "prog*"
+     "delete-duplicates" "copy-list" "symbol-name" "readtable-case" "search"
+     "update-instance-for-different-class" ">" "decode-float" "unintern"
+     "remove-if-not" "+" "log" "eql" "require" "invalid-method-error" "list-length"
+     "truncate" "logbitp" "denominator" "string-capitalize" "mask-field" "go"
+     "cadar" "makunbound" "acos" "fresh-line" "continue" "integer-length"
+     "integer-decode-float" "cdar" "rational" "ccase" "prog1" "logcount" "svref"
+     "evenp" "get-internal-real-time" "expt" "set-dispatch-macro-character"
+     "char-not-greaterp" "load-logical-pathname-translations" "room" "bit-not"
+     "caaar" "make-array" "package-used-by-list" "1+" "array-dimensions"
+     "shared-initialize" "caaadr" "psetf" "maphash" "byte" "null" "maplist"
+     "inspect" "mapcon" "with-open-file" "print-object" "identity" "bit-vector-p"
+     "delete-if" "nset-exclusive-or" "float-radix" "notany" "char<=" "append"
+     "echo-stream-output-stream" "rassoc-if" "equal" "array-displacement" "rplaca"
+     "let" "eval-when" "lisp-implementation-version" "yes-or-no-p" "open-stream-p"
+     "upper-case-p" "return" "ftruncate" "schar" "incf" "make-symbol"
+     "make-random-state" "cerror" "defun" "special-operator-p" "merge" "locally"
+     "defmethod" "bit-eqv" "sbit" "remove" "slot-makunbound"
+     "two-way-stream-output-stream" "numberp" "subst" "remove-duplicates"
+     "make-broadcast-stream" "string-lessp" "write-line" "fmakunbound"
+     "set-difference" "notevery" "defvar" "<" "constantp" "tan"
+     "multiple-value-bind" "princ-to-string" "package-use-list"
+     "user-homedir-pathname" "fill" "cadr" "throw" "compute-applicable-methods"
+     "cadddr" "fdefinition" "packagep" "oddp" "etypecase" "find-package"
+     "rassoc-if-not" "bit-and" "acons" "lcm" "update-instance-for-redefined-class"
+     "logandc1" "char-name" "equalp" "nth-value" "not" "check-type" "elt"
+     "arithmetic-error-operands" "pathname-version" "second" "string-downcase"
+     "listen" "directory-namestring" "mapcan" "truename" "formatter" "some"
+     "both-case-p" "tanh" "cond" "call-method" "array-dimension" "cadaar" "ninth"
+     "find-class" "with-simple-restart" "apply" "char>" "vectorp"
+     "make-string-input-stream" "sin" "cddaar" "host-namestring" "1-" "find-symbol"
+     "remove-if" "subsetp" "machine-type" "parse-namestring" "hash-table-test"
+     "compiler-macro-function" "set-macro-character" "flet"
+     "make-instances-obsolete" "force-output" "fill-pointer" "mod" "subtypep"
+     "third" "do-symbols" "cell-error-name" "pathname-type" "listp" "rationalp"
+     "pprint-dispatch" "lognor" "write-char" "member" "pairlis" "file-position"
+     "caaddr" "symbol-package" "find-if" "prin1" "values" "ash" "with-accessors"
+     "fceiling" "print-not-readable-object" "cdddar"
+     "simple-condition-format-control" "count" "alphanumericp" "vector"
+     "no-next-method" "set-pprint-dispatch" "slot-boundp" "package-nicknames"
+     "string-not-lessp" "fround" "setq" "find-restart" "logtest" "streamp"
+     "function-keywords" "package-error-package" "string/=" "sleep" "every" "loop"
+     "make-echo-stream" "string-left-trim" "-" "export"
+     "make-dispatch-macro-character" "pprint-fill" "complex" "cddadr" "scale-float"
+     "get-output-stream-string" "defparameter" "prin1-to-string" "delete-package")
+   'symbols)
+  "Function names."
+  :group 'lisp-extra-font-lock
+  :type '(list symbol))
+
 (defcustom lisp-extra-font-lock-let-functions
   '("let"
     "let*"
@@ -235,11 +414,33 @@ special variables like plain variables, set this to
     "pcase-let*"
     "cl-letf"
     "cl-letf*"
-    "cl-multiple-value-bind")
+    "cl-multiple-value-bind"
+
+    "-let"
+    "-let*"
+    "-if-let"
+    "-if-let*"
+    "-when-let"
+    "-when-let*"
+
+    "prog"
+    "prog*"
+    "cl-prog"
+    "cl-prog*"
+    "progv"
+    "cl-progv"
+    "compiler-let"
+    "when-let"
+    "when-let*"
+    "if-let"
+    "if-let*"
+    "alexandria:when-let"
+    "alexandria:when-let*"
+    "alexandria:if-let"
+    "alexandria:if-let*")
   "List of function using same syntax as `let' to bind variables."
   :type '(repeat string)
   :group 'lisp-extra-font-lock)
-
 
 (defcustom lisp-extra-font-lock-defun-functions
   '("defun"
@@ -256,7 +457,7 @@ special variables like plain variables, set this to
 
 
 (defcustom lisp-extra-font-lock-lambda-functions
-  '("lambda")
+  '("lambda" "destructuring-bind" "cl-destructuring-bind")
   "List of function using same syntax as `lambda' to bind variables."
   :type '(repeat string)
   :group 'lisp-extra-font-lock)
@@ -266,7 +467,14 @@ special variables like plain variables, set this to
   '("dolist"
     "dotimes"
     "cl-dolist"
-    "cl-dotimes")
+    "cl-dotimes"
+    "do-symbols"
+    "cl-do-symbols"
+    "do-all-symbols"
+    "cl-do-all-symbols"
+
+    "doseq"
+    "seq-doseq")
   "List of function using same syntax as `dolist' to bind variables."
   :type '(repeat string)
   :group 'lisp-extra-font-lock)
@@ -410,7 +618,11 @@ The keywords highlight variable bindings and quoted expressions."
       (2 lisp-extra-font-lock-backquote-face nil t)))
     ;; Function read syntax
     ("#'\\(\\(?:\\sw\\|\\s_\\)+\\)\\_>"
-     1 lisp-extra-font-lock-quoted-function-face)))
+     1 lisp-extra-font-lock-quoted-function-face)
+    (,lisp-extra-font-lock-macro-symbols-opt
+      (0 font-lock-macro-face))
+     (,lisp-extra-font-lock-function-symbols-opt
+      (0 font-lock-function-call-face))))
 
 
 (defvar lisp-extra-font-lock--installed-keywords nil)
