@@ -1,4 +1,4 @@
-;;; lisp-extra-font-lock.el --- Highlight bound variables and quoted exprs. -*- lexical-binding: t -*-
+;;; lisp-extra-font-lock.el --- Highlight bound variables and quoted exprs -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2014-2018 Anders Lindgren
 
@@ -140,7 +140,7 @@
 
 
 (defgroup lisp-extra-font-lock nil
-  "Highlight bound variables and quoted expressions in lisp."
+  "Highlight bound variables and quoted expressions in Lisp."
   :group 'faces)
 
 
@@ -510,7 +510,7 @@ special variables like plain variables, set this to
 
 ;;;###autoload
 (define-minor-mode lisp-extra-font-lock-mode
-  "Minor mode that highlights bound variables and quoted expressions in lisp."
+  "Minor mode that highlights bound variables and quoted expressions in Lisp."
   :group 'lisp-extra-font-lock
   (if lisp-extra-font-lock-mode
       (lisp-extra-font-lock-add-keywords)
