@@ -144,7 +144,6 @@
   :group 'faces)
 
 
-;;;###autoload
 (defcustom lisp-extra-font-lock-modes '(emacs-lisp-mode lisp-mode)
   "List of modes where Lisp Extra Font Lock Global mode should be enabled."
   :type '(repeat symbol)
@@ -508,7 +507,6 @@ special variables like plain variables, set this to
 ;; The modes
 ;;
 
-;;;###autoload
 (define-minor-mode lisp-extra-font-lock-mode
   "Minor mode that highlights bound variables and quoted expressions in Lisp."
   :group 'lisp-extra-font-lock
@@ -524,7 +522,6 @@ special variables like plain variables, set this to
         (font-lock-fontify-buffer)))))
 
 
-;;;###autoload
 (define-global-minor-mode lisp-extra-font-lock-global-mode
   lisp-extra-font-lock-mode
   (lambda ()
