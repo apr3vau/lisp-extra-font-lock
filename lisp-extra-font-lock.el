@@ -1,4 +1,4 @@
-;;; lisp-extra-font-lock.el --- Highlight bound variables and quoted exprs.
+;;; lisp-extra-font-lock.el --- Highlight bound variables and quoted exprs. -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2014-2018 Anders Lindgren
 
@@ -223,7 +223,16 @@ special variables like plain variables, set this to
 ;; Function lists
 ;;
 
-(defvar font-lock-macro-face 'font-lock-macro-face
+
+(defface lisp-extra-font-lock-macro-face
+  '((t :inherit 'font-lock-type-face))
+  "Colourful font-lock face for macro names.")
+(defvar lisp-extra-font-lock-macro-face 'font-lock-macro-face
+  "Face name to use for macro.")
+
+(defvar lisp-extra-font-lock-function-call-face 'font-lock-function-call-face)
+
+(defvar lisp-extra-font-lock-macro-face 'font-lock-macro-face
   "Face name to use for macro.")
 
 (defcustom lisp-extra-font-lock-macro-symbols-opt
@@ -620,9 +629,9 @@ The keywords highlight variable bindings and quoted expressions."
     ("#'\\(\\(?:\\sw\\|\\s_\\)+\\)\\_>"
      1 lisp-extra-font-lock-quoted-function-face)
     (,lisp-extra-font-lock-macro-symbols-opt
-      (0 font-lock-macro-face))
-     (,lisp-extra-font-lock-function-symbols-opt
-      (0 font-lock-function-call-face))))
+     (0 lisp-extra-font-lock-macro-face))
+    (,lisp-extra-font-lock-function-symbols-opt
+     (0 lisp-extra-font-lock-function-call-face))))
 
 
 (defvar lisp-extra-font-lock--installed-keywords nil)
