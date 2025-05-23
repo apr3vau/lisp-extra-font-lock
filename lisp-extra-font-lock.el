@@ -143,7 +143,7 @@
   "Highlight bound variables and quoted expressions in Lisp."
   :group 'faces)
 
-
+;;;###autoload
 (defcustom lisp-extra-font-lock-modes '(emacs-lisp-mode lisp-mode)
   "List of modes where Lisp Extra Font Lock Global mode should be enabled."
   :type '(repeat symbol)
@@ -230,6 +230,7 @@ special variables like plain variables, set this to
   "Face name to use for macro.")
 
 (defvar lisp-extra-font-lock-function-call-face 'font-lock-function-call-face)
+(defvar lisp-extra-font-lock-variable-use-face 'font-lock-variable-use-face)
 
 (defvar lisp-extra-font-lock-macro-face 'font-lock-macro-face
   "Face name to use for macro.")
@@ -507,6 +508,7 @@ special variables like plain variables, set this to
 ;; The modes
 ;;
 
+;;;###autoload
 (define-minor-mode lisp-extra-font-lock-mode
   "Minor mode that highlights bound variables and quoted expressions in Lisp."
   :group 'lisp-extra-font-lock
@@ -522,6 +524,7 @@ special variables like plain variables, set this to
         (font-lock-fontify-buffer)))))
 
 
+;;;###autoload
 (define-global-minor-mode lisp-extra-font-lock-global-mode
   lisp-extra-font-lock-mode
   (lambda ()
@@ -564,6 +567,13 @@ The keywords highlight variable bindings and quoted expressions."
       nil
       (0 ,(lisp-extra-font-lock-variable-face-form '(match-string 0))
          nil t)))
+    ;; Variables wrapped by asterisks
+    ;; and constants wrapped by plus sign
+    ("\\_<\\(?:\\*\\|\\+\\)[a-zA-Z0-9#$%:/-]+?\\(?:\\*\\|\\+\\)\\_>"
+     (0 lisp-extra-font-lock-variable-use-face))
+    ;; Symbol package names
+    ("\\_<[a-zA-Z0-9#$%/-]+?\\:\\{1,2\\}"
+     (0 font-lock-type-face))
     ;; Variables bound by `let'.
     (,(concat "("
               (regexp-opt lisp-extra-font-lock-let-functions)
