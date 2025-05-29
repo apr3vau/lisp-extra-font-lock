@@ -569,11 +569,16 @@ The keywords highlight variable bindings and quoted expressions."
          nil t)))
     ;; Variables wrapped by asterisks
     ;; and constants wrapped by plus sign
+    
+    ;; Symbol package names
     ("\\_<\\(?:\\*\\|\\+\\)[a-zA-Z0-9#$%:/-]+?\\(?:\\*\\|\\+\\)\\_>"
      (0 lisp-extra-font-lock-variable-use-face))
-    ;; Symbol package names
+    ("\\_<\\([a-zA-Z0-9#$%/-]+?\\:\\{1,2\\}\\)\\(\\(?:\\*\\|\\+\\)[a-zA-Z0-9#$%:/-]+?\\(?:\\*\\|\\+\\)\\)\\_>"
+     (1 font-lock-type-face)
+     (2 lisp-extra-font-lock-variable-use-face))
     ("\\_<[a-zA-Z0-9#$%/-]+?\\:\\{1,2\\}"
      (0 font-lock-type-face))
+    
     ;; Variables bound by `let'.
     (,(concat "("
               (regexp-opt lisp-extra-font-lock-let-functions)
